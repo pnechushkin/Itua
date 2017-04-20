@@ -29,6 +29,7 @@ if (mysqli_connect_errno()) {
     <!--Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script language="JavaScript" type="text/JavaScript">
+        // отображение/скрытие ошибок в форме
         function ShowHideDiv(id) {
             if (document.getElementById(id).style.display == "none") {
                 document.getElementById(id).style.display = "block"
@@ -37,9 +38,11 @@ if (mysqli_connect_errno()) {
                 document.getElementById(id).style.display = "none"
             }
         }
+        //смена класса результата отправки формы
         function ClassDiv(id,cl) {
             document.getElementById(id).setAttribute("class", cl);
         }
+        //отображение результатов  поиска зарегистрированных  пользователей при смене параметров поиска (регистрация от и до, сортировка)
         function getrez() {
             StartDate=$("#StartDate").val();
             EndDate=$("#EndDate").val();
@@ -54,12 +57,15 @@ if (mysqli_connect_errno()) {
                 }
             })
         }
+        //формат даты и назначение datepicker начальной даты сортировки
         $( function() {
             $( "#StartDate" ).datepicker({dateFormat:'yy-mm-dd'});
         } );
+        //формат даты и назначение datepicker конечной даты сортировки
         $( function() {
             $( "#EndDate" ).datepicker({dateFormat:'yy-mm-dd'});
         } );
+        //запуск функции поиска зарегистрированных  пользователей
         window.onload = function () {
             getrez();
         }
