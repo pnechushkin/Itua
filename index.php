@@ -8,7 +8,7 @@
 include_once('head.php');
 $rezalt='';
 $qerors=0;
-$uploaddir = 'files/';
+$uploaddir = 'files'.DIRECTORY_SEPARATOR;
 function cleen ($val){
     $val=trim($val);
     $val=strip_tags($val,'<br></br>');
@@ -87,7 +87,12 @@ if (!empty($_POST)){
     //проверка Файла
     $url_file=null;
     if (!empty($_FILES['file'])&&$_FILES['file']['error']==0){
-        $move=@move_uploaded_file($_FILES['file']['tmp_name'], $uploaddir . basename($_FILES['file']['name']));
+        $filename=$_FILES['file']['name'];
+        // получаем формат файла.
+        $ext = substr($filename, 1 + strrpos($filename, "."));
+        $today = date("d-m-Y-H-i-s");
+        $filename =$today . "." . $ext;
+        $move=@move_uploaded_file($_FILES['file']['tmp_name'], $uploaddir . $filename);
         if (!$move) {
             $qerors++;
             ?>
@@ -100,7 +105,7 @@ if (!empty($_POST)){
             $file_text_eror='Ошибка загрузки файла';
         }
         else {
-            $url_file=$uploaddir . basename($_FILES['file']['name']);
+            $url_file=$uploaddir . $filename;
         }
     }
     //проверим на существование логина
