@@ -8,7 +8,7 @@
 include_once('head.php');
 $rezalt='';
 $qerors=0;
-$uploaddir = 'files'.DIRECTORY_SEPARATOR;
+$uploaddir = 'upload'.DIRECTORY_SEPARATOR;
 function cleen ($val){
     $val=trim($val);
     $val=strip_tags($val,'<br></br>');
