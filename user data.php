@@ -12,9 +12,9 @@ if (mysqli_connect_errno()) {
     exit();
 }
 $Sort=$_POST['Sort'];
-$StartDate=$_POST['StartDate'];
-$EndDate=$_POST['EndDate'];
-$result = $mysqli->query("SELECT `login`, `name`, `mail`, `message`,`date_reg` FROM `users` WHERE `date_reg` >= '$StartDate'
+$StartDate=$_POST['StartDate'].'00:00:00';
+$EndDate=$_POST['EndDate'].'23:59:59';
+$result = $mysqli->query("SELECT `login`, `name`, `mail`, `message`,`date_reg`,`url_file` FROM `users` WHERE `date_reg` >= '$StartDate'
 AND `date_reg` <= '$EndDate' $Sort");
 if ($result->num_rows!=0):?>
     <div class="row">
@@ -30,7 +30,11 @@ if ($result->num_rows!=0):?>
         <div class="row">
             <div class="col-md-4">Логин: </br><?=$row["login"]?> (<?=date("d.m.Y", strtotime($row["date_reg"]))?>)</div>
             <div class="col-md-4">Имя: </br><?=$row["name"]?></div>
-            <div class="col-md-4">E-mail: </br><?=$row["mail"]?></div>
+            <div class="col-md-4">E-mail: </br><?=$row["mail"];
+                if (!empty($row["url_file"])): ?>
+                <a href="<?=$row["url_file"]?>">  Загруженный файл</a>
+                    <?php endif; ?>
+            </div>
         </div>
         <div class="row">
             <div class="col-md-12">О себе: </br><?=$row["message"]?></div>
